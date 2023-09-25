@@ -1,62 +1,87 @@
-﻿namespace day_one_oop
+﻿namespace day_two_oop
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            #region 6 employees instances 
-            Employee[] employees = new Employee[5];
+            Employee emp1 = new Employee("mohamed", "manager", "minia", 123654789, 6000);
+            Employee emp2 = new Employee("mohamed", "manager", "minia", 123654789, 6000);
+            Employee emp3 = new Employee("mohamed", "manager", "minia", 123654789, 6000);
+            Employee emp4 = new Employee("mohamed", "manager", "minia", 123654789, 6000);
 
+            Employee.displayCountEmployee();
 
-            #region first_employee
-            employees[0]=new Employee(1,"Ahmed",24,8500);
-            #endregion
+        }
+       
+    
+    }
+    public class Employee
+    {
+        #region Fields
+        public string Name;
+        public string Address;
+        public int NID;
+        public string Title;
+        public static string DepartmentName;
+        public static int Count;
+        #endregion
 
-            #region second_employee using normal way
-            //second Employee with deep copy
-            //employees[1] = new Employee();
+        #region constructors
+        //static constructor
+         static Employee()
+        {
+            DepartmentName = ".Net";
+            Count = 0;
+        }
+        //constructor used to initialized all data of hte class
+        public Employee(string name,string title,string adress,int nid,int salary)
+        {
+            this.Name = name;
+            this.Title = title;
+            this.Address = adress;
+            this.salary = salary;
+            this.NID = nid;
 
-            //employees[1].id = employees[0].id;
-            //employees[1].name = employees[0].name;
-            //employees[1].age = employees[0].age;
-            //employees[1].salary = employees[0].salary;
+            Count++;
+        }
 
-            #endregion
+        //constructor to initial only name and the salary
+        public Employee(string name,int nid):this(name,"maanger","minia",nid,5000)
+        {
+            
+        }
+        #endregion
 
-            #region second_employee using copy_constructor way
+        #region property
+        private int salary;
 
-            employees[1] = new Employee(employees[0]);
-
-            #endregion
-
-            #region third and fourth employee
-            employees[2] = new Employee(3, "ali", 26, 9500);
-            employees[3] = new Employee(4, "omar", 26, 6500);
-            #endregion
-
-            #region fifth employee a reference to the fourth employee (no copy constructor needed)
-
-            employees[4] = employees[3];
-
-            #endregion
-
-            #region sixth_employee
-            employees[5] = new Employee(5, "ayman", 22, 4300);
-            #endregion
-
-
-            #endregion
-
-
-            #region dispaly_employees
-            for (int i = 0; i <= employees.Length; i++)
+        public int Salary
+        {
+            get
             {
-                Console.WriteLine($"Employee number {employees[i]}:");
-                employees[i].EmpInfo();
-                Console.WriteLine();
-            }
-            #endregion
 
+                return salary;
+            }
+            set
+            {
+                if (salary > 5000)
+                {
+                    salary = value;
+                }
+                else
+                {
+                    Console.WriteLine("you enter salary less than 5000");
+                    salary = 5000;
+                }
+
+            }
+        }
+
+        #endregion
+
+        public static void displayCountEmployee()
+        {
+            Console.WriteLine($"the total number of the emplyee:- {Count} ");
         }
     }
 }
